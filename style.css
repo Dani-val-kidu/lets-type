@@ -1,0 +1,160 @@
+:root {
+    --bg-color: #323437;
+    --main-color: #e2b714;
+    --caret-color: #e2b714;
+    --sub-color: #646669;
+    --text-color: #d1d0c5;
+    --error-color: #ca4754;
+    --font-family: 'Courier New', Courier, monospace;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-family);
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: clamp(16px, 4vw, 48px);
+    user-select: none;
+}
+
+#test-container {
+    max-width: 960px;
+    width: 100%;
+    padding: clamp(20px, 4vw, 48px);
+    position: relative;
+}
+
+#stats-row {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+    font-size: 1.25rem;
+    color: var(--sub-color);
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+#stats-row > div {
+    padding: 9px 13px;
+    border: 1px solid rgba(209, 208, 197, 0.12);
+    border-radius: 9px;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.stat-val {
+    color: var(--main-color);
+}
+
+#words-wrapper {
+    position: relative;
+    width: 100%;
+    min-height: clamp(220px, 32vw, 320px);
+    padding: clamp(28px, 6vw, 64px);
+    border: 1px solid rgba(209, 208, 197, 0.18);
+    border-radius: 16px;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.035), rgba(0, 0, 0, 0.16));
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.16);
+    font-size: clamp(1.2rem, 2.7vw, 1.6rem);
+    line-height: 2.5rem;
+    color: var(--sub-color);
+}
+
+#words-inside {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6ch;
+    /* Removed the negative margin transformation to let lines stack naturally */
+}
+
+.word {
+    display: inline-block;
+    position: relative;
+}
+
+letter {
+    position: relative;
+}
+
+letter.correct {
+    color: var(--text-color);
+}
+
+letter.incorrect {
+    color: var(--error-color);
+    border-bottom: 2px solid var(--error-color);
+}
+
+#caret {
+    position: absolute;
+    width: 2px;
+    height: 1.7rem;
+    background-color: var(--caret-color);
+    top: 6px;
+    left: 0;
+    /* Linear transitions handle multi-axis vector steps cleanly */
+    transition: left 0.08s linear, top 0.08s linear;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
+}
+
+#hidden-input {
+    position: absolute;
+    opacity: 0;
+    z-index: -999;
+}
+
+#restart-btn {
+    background: rgba(226, 183, 20, 0.1);
+    border: 1px solid rgba(226, 183, 20, 0.35);
+    border-radius: 8px;
+    color: var(--sub-color);
+    font-family: var(--font-family);
+    font-size: 1rem;
+    margin-top: 28px;
+    padding: 11px 16px;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (max-width: 520px) {
+    #stats-row {
+        gap: 14px;
+        font-size: 1.15rem;
+    }
+
+    #words-wrapper {
+        min-height: 240px;
+        padding: 24px;
+    }
+}
+
+#restart-btn:hover {
+    color: var(--main-color);
+    border-color: var(--main-color);
+    background: rgba(226, 183, 20, 0.17);
+    transform: translateY(-2px);
+}
+
+#restart-btn:focus-visible {
+    outline: 2px solid var(--main-color);
+    outline-offset: 3px;
+}
+
+.hidden {
+    display: none !important;
+}

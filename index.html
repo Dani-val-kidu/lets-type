@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clonetype - Minimalist Typing Test</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="test-container">
+    <div id="stats-row">
+        <div>time: <span id="ui-timer" class="stat-val">30</span></div>
+        <div id="wpm-display" class="hidden">wpm: <span id="ui-wpm" class="stat-val">0</span></div>
+        <div id="acc-display" class="hidden">acc: <span id="ui-acc" class="stat-val">100%</span></div>
+    </div>
+
+    <!-- Hidden input handles mobile and desktop keyboard events smoothly -->
+    <input type="text" id="hidden-input" autocomplete="off" autocapitalize="off" autofocus>
+
+    <div id="words-wrapper">
+        <div id="caret"></div>
+        <div id="words-inside"></div>
+    </div>
+
+    <button id="restart-btn">🔄</button>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
