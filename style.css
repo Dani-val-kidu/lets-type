@@ -72,7 +72,6 @@ body {
     display: flex;
     flex-wrap: wrap;
     gap: 0.6ch;
-    /* Removed the negative margin transformation to let lines stack naturally */
 }
 
 .word {
@@ -100,7 +99,6 @@ letter.incorrect {
     background-color: var(--caret-color);
     top: 6px;
     left: 0;
-    /* Linear transitions handle multi-axis vector steps cleanly */
     transition: left 0.08s linear, top 0.08s linear;
     animation: blink 1s infinite;
 }

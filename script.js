@@ -42,13 +42,11 @@ function initTest() {
     wordsInside.innerHTML = '';
     wordsArray = [];
     
-    // Shuffle words randomly
     const shuffled = [...wordsList].sort(() => 0.5 - Math.random());
     for(let i=0; i < maxWords; i++) {
         wordsArray.push(shuffled[i % shuffled.length]);
     }
     
-    // Build DOM layout structure
     wordsArray.forEach((wordStr) => {
         const wordDiv = document.createElement('div');
         wordDiv.className = 'word';
@@ -62,7 +60,6 @@ function initTest() {
 
     wordsInside.style.marginTop = "0px";
     
-    // Small timeout ensures the DOM renders prior to calculating spatial offsets
     setTimeout(updateCaret, 10);
     hiddenInput.focus();
 }
@@ -78,7 +75,6 @@ function updateCaret() {
     if (targetEl) {
         targetRect = targetEl.getBoundingClientRect();
     } else {
-        // Put the caret immediately after the last typed letter.
         const lastLetter = currentWordEl.children[currentWordEl.children.length - 1];
         if (lastLetter) {
             const lastLetterRect = lastLetter.getBoundingClientRect();
@@ -91,19 +87,11 @@ function updateCaret() {
         }
     }
     
-    // Updates both dimensions instantly. When the word wraps, 
-    // the CSS transition will animate it down smoothly to the next row!
-    // getBoundingClientRect gives page coordinates. Convert them to the
-    // wrapper's coordinate system so the caret follows every letter and word,
-    // including after a line wrap.
     caret.style.left = `${targetRect.left - wrapperRect.left - wordsWrapper.clientLeft}px`;
     caret.style.top = `${targetRect.top - wrapperRect.top - wordsWrapper.clientTop + 4}px`;
 }
 
-// Obsolete scrolling translation code removed to allow infinite downward stepping
-
 function handleLineScrolling(currentWordEl) {
-    // Shifts layout upward smoothly when typing drops to lower lines
     if (currentWordEl.offsetTop > 40) {
         wordsInside.style.marginTop = `-${currentWordEl.offsetTop - 6}px`;
     }
@@ -132,7 +120,6 @@ function handleInput() {
     const inputVal = hiddenInput.value;
     const lastChar = inputVal[inputVal.length - 1];
 
-    // Spacebar triggers jumping forward to the next index block
     if (lastChar === ' ') {
         if (currentLetterIndex > 0) {
             currentWordIndex++;
@@ -143,7 +130,6 @@ function handleInput() {
         return;
     }
 
-    // Handles Backspacing character removals cleanly
     if (inputVal.length < currentLetterIndex) {
         if (currentLetterIndex > 0) {
             currentLetterIndex--;
@@ -158,7 +144,6 @@ function handleInput() {
         return;
     }
 
-    // Process character entry validation mechanics
     if (currentLetterIndex < letters.length) {
         const targetLetter = letters[currentLetterIndex];
         totalTypedCharacters++;
@@ -182,8 +167,6 @@ function returnToPreviousWord() {
     const previousWord = wordsInside.children[currentWordIndex];
     currentLetterIndex = previousWord.children.length;
 
-    // The hidden input needs the same length as the word so its next
-    // Backspace event removes the final letter normally.
     hiddenInput.value = 'x'.repeat(currentLetterIndex);
     updateCaret();
 }
@@ -193,7 +176,6 @@ function endTest() {
     hiddenInput.blur();
     
     const elapsedMinutes = testDuration / 60;
-    // Telemetry formulation (5 character adjustments constitute 1 structural word unit)
     const wpm = Math.round((correctCharacters / 5) / elapsedMinutes);
     const accuracy = totalTypedCharacters > 0 ? Math.round((correctCharacters / totalTypedCharacters) * 100) : 0;
     
@@ -204,12 +186,9 @@ function endTest() {
     accDisplay.classList.remove('hidden');
 }
 
-// Global Event Focus Bindings
 window.addEventListener('click', () => hiddenInput.focus());
 hiddenInput.addEventListener('input', handleInput);
 hiddenInput.addEventListener('keydown', (e) => {
-    // An empty input emits no input event on Backspace, so handle crossing a
-    // word space here and place the cursor back in the previous word.
     if (e.key === 'Backspace' && hiddenInput.value.length === 0) {
         returnToPreviousWord();
     }
@@ -223,5 +202,4 @@ window.addEventListener('keydown', (e) => {
     }
 });
 
-// Run application
 initTest();

@@ -22,7 +22,7 @@ No installation is needed.
 
 ## Project files
 
-- `index.html` — page structure
+- `index.html` — page structure(the backbone)
 - `style.css` — responsive layout and visual styles
 - `script.js` — typing test behavior, timer, scoring, and caret movement
 
