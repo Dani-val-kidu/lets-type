@@ -1,4 +1,13 @@
-const wordsList = ["the", "be", "to", "of", "and", "a", "in", "that", "have", "i", "it", "for", "not", "on", "with", "he", "as", "you", "do", "at", "this", "but", "his", "by", "from", "they", "we", "say", "her", "she", "or", "an", "will", "my", "one", "all", "would", "there", "their", "what", "so", "up", "out", "if", "about", "who", "get", "which", "go", "me", "when", "make", "can", "like", "time", "no", "just", "him", "know", "take", "people", "into", "year", "your", "good", "some", "could", "them", "see", "other", "than", "then", "now", "look", "only", "come", "its", "over", "think", "also", "back", "after", "use", "two", "how", "our", "work", "first", "well", "way", "even", "new", "want", "because", "any", "these", "give", "day", "most", "us"];
+const sentences = [
+    "a variable stores a value that your program can use later.",
+    "functions group reusable instructions into clear and focused tasks.",
+    "an array keeps related values together in an ordered list.",
+    "a loop repeats code while a condition remains true.",
+    "use descriptive names so other developers can understand your code.",
+    "testing small changes often makes bugs easier to find and fix.",
+    "html provides structure while css controls the visual presentation.",
+    "javascript responds to events and makes web pages interactive."
+];
 
 const maxWords = 60;
 const testDuration = 30;
@@ -42,10 +51,16 @@ function initTest() {
     wordsInside.innerHTML = '';
     wordsArray = [];
     
-    const shuffled = [...wordsList].sort(() => 0.5 - Math.random());
-    for(let i=0; i < maxWords; i++) {
-        wordsArray.push(shuffled[i % shuffled.length]);
+    const shuffledSentences = [...sentences].sort(() => 0.5 - Math.random());
+    let sentenceIndex = 0;
+
+    while (wordsArray.length < maxWords) {
+        const sentenceWords = shuffledSentences[sentenceIndex % shuffledSentences.length].split(' ');
+        wordsArray.push(...sentenceWords);
+        sentenceIndex++;
     }
+
+    wordsArray = wordsArray.slice(0, maxWords);
     
     wordsArray.forEach((wordStr) => {
         const wordDiv = document.createElement('div');

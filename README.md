@@ -4,7 +4,7 @@ A responsive, browser-based typing test built with HTML, CSS, and JavaScript.
 
 ## Features
 
-- 30-second typing test with randomly shuffled words
+- 30-second typing test with randomized programming-learning sentences
 - Live caret that follows each letter and moves across wrapped lines
 - Correct letters, incorrect letters, WPM, and accuracy tracking
 - Backspace support for returning to a previous word and fixing mistakes
@@ -34,4 +34,3 @@ No installation is needed.
 | `Space` | Moves to the next word |
 | `Backspace` | Deletes a letter or returns to the prior word |
 | `Tab` | Restarts the test |
-
